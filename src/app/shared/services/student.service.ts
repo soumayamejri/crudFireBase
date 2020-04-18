@@ -11,23 +11,23 @@ export class StudentService {
   constructor(private firestore: AngularFirestore) { }
   
   AddStudent(student: Student) {
-    return this.firestore.collection('id').add(student);
+    return this.firestore.collection('students').add(student);
   }
 
   getStudentsList() {
-    return this.firestore.collection('id').snapshotChanges();
+    return this.firestore.collection('students').snapshotChanges();
   }
 
   deleteStudent(studentId: string){
-    this.firestore.doc('id/' + studentId).delete();
+    this.firestore.doc('students/' + studentId).delete();
   }
 
   getStudent(id: string) {
-    return this.firestore.doc('id/' + id).get();
+    return this.firestore.doc('students/' + id).get();
   }
 
   updateStudent(student: Student) {
-    return this.firestore.doc('id/' + student.id).update(student);
+    return this.firestore.doc('students/' + student.id).update(student);
   }
 
 }

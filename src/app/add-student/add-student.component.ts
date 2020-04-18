@@ -13,18 +13,29 @@ import { NgForm } from '@angular/forms';
 export class AddStudentComponent implements OnInit {
   public student = new Student();
   formAdd: NgForm;
+  id:string;
 
   constructor(private studentService: StudentService,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+   
+    this.activatedRoute.queryParams.subscribe(params => {
+   // this.student.id = params['id'];
 
+   this.id=params['id'];
+
+    });
+    if (this.id) {
+    //this.getStudent(this.student.id);
+    this.getStudent(this.id);
+  }
   }
 
   save() {
-    if (!this.student.id) {
+    if (!this.id) {
       this.studentService.AddStudent({ ...this.student }).then((res) => {
-        this.formAdd.reset(this.student.firstName);
+       // this.formAdd.resetForm();
       })
     } else {
       this.studentService.updateStudent(this.student);
