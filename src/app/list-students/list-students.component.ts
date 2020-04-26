@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentService } from'../shared/services/student.service';
+import { StudentService } from '../shared/services/student.service';
 import { Student } from '../shared/models/student';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-list-students',
@@ -20,20 +21,29 @@ export class ListStudentsComponent implements OnInit {
 
   getAllStudents() {
     this.studentService.getStudentsList().subscribe(data => {
-    this.students = data.map(e => {
-    return {
-    id: e.payload.doc.id,
-    ...e.payload.doc.data() as Student
-    };
-    })
+      this.students = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data() as Student
+        };
+      })
     });
   }
 
-    delete(id: string) {
-      this.studentService.deleteStudent(id);
+  delete(id: string) {
+    Swal.fire('Voulez vous supprimer cet étudiant(e)').then((result) => {
+      if (result.value) {
+        this.studentService.deleteStudent(id);
       }
-      
-    
+
+    });
+
+
+
+
+  }
+
+
 
 
 }

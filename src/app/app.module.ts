@@ -6,9 +6,10 @@ import { AddStudentComponent } from './add-student/add-student.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from'@angular/fire/database';
 import { environment } from '../environments/environment';
-import { FormsModule } from '@angular/forms';
 import { ListStudentsComponent } from './list-students/list-students.component';
-
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: 'all-student', component: ListStudentsComponent },
@@ -20,18 +21,22 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     AddStudentComponent,
-    ListStudentsComponent,
- 
+    ListStudentsComponent
   ],
   imports: [
     BrowserModule, 
     RouterModule.forRoot(routes),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    FormsModule
-   
+    FormsModule,
+    ToastrModule.forRoot() ,
+    BrowserAnimationsModule,
+    BrowserModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  
+}

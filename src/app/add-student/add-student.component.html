@@ -1,46 +1,61 @@
 <div class="pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Add Student</h1>
-    </div>
-    <form #addForm="ngForm" (ngSubmit)="save()">
+</div>
+<form #addForm="ngForm" (ngSubmit)="addForm.form.valid && save()">
     <div class="row">
-    <div class="col-lg-5 col-md-12 col-sm-12">
-    <div class="row">
-    <div class="col-md-12 mb-3">
-    <label>First Name</label>
-    <input type="text" name="firstName" class="form-control" [(ngModel)]="student.firstName">
-    </div>
-    <div class="col-md-12 mb-3">
-    <label>Last Name</label>
-    <input type="text" name="lastName" class="form-control" [(ngModel)]="student.lastName">
-    
-    </div>
-    </div>
-    <div class="row">
-    <div class="col-md-12 mb-3">
-    <label>Email</label>
-    <input type="email" class="form-control" name="email" [(ngModel)]="student.email">
-    </div>
-    <div class="col-md-12 mb-3">
+        <div class="col-lg-5 col-md-12 col-sm-12">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label>First Name</label>
+                    <input type="text" name="firstName" class="form-control" [(ngModel)]="student.firstName"
+                        #firstName="ngModel" [ngClass]="{ 'is-invalid': addForm.submitted && firstName.invalid }"
+                        required>
+                    <div class="invalid-feedback" *ngIf="addForm.submitted && firstName.invalid">
+                        <p *ngIf="firstName.errors.required">First name is required</p>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label>Last Name</label>
+                    <input type="text" name="lastName" class="form-control" [(ngModel)]="student.lastName">
 
-        <label>Password</label>
-<input type="password" class="form-control" name="password" [(ngModel)]="student.password">
-</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="email" [(ngModel)]="student.email" #email="ngModel"
+                        [ngClass]="{ 'is-invalid': addForm.submitted && email.invalid }" email required>
+                    <div class="invalid-feedback" *ngIf="addForm.submitted && email.invalid">
+                        <p *ngIf="email.errors.email">Must be a valid email address</p>
+                        <p *ngIf="email.errors.required">Email is required</p>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="password" [(ngModel)]="student.password"
+                        #password="ngModel" [ngClass]="{ 'is-invalid': addForm.submitted && password.invalid }"
+                        minlength="6" required>
+                    <div *ngIf="addForm.submitted && password.invalid" class="invalid-feedback">
+                        <div *ngIf="password.errors.required">Password is required</div>
+                        <div *ngIf="password.errors.minlength">Password should be at least 6 characters long</div>
+                        <div *ngIf="password.errors.hasCapitalCase">Password should have at least one capital letter</div>
+                    </div>
+                </div>
 
-<div class="col-md-12 mb-3">
-    <label>Age</label>
-    <input type="text" class="form-control" name="age" [(ngModel)]="student.age">
-</div>
+                <div class="col-md-12 mb-3">
+                    <label>Age</label>
+                    <input type="text" class="form-control" name="age" [(ngModel)]="student.age">
+                </div>
 
-<div class="col-md-12 mb-3">
-<label>Phone number</label>
-<input type="text" class="form-control" name="phone" [(ngModel)]="student.phone">
-</div>
-</div>
-<div class="form-group text-right">
-<button type="button"
-class="btn btn-secondary">Cancel</button>
-<button type="submit" class="btn btn-success">AddStudent</button>
-</div>
-</div>
-</div>
+                <div class="col-md-12 mb-3">
+                    <label>Phone number</label>
+                    <input type="text" class="form-control" name="phone" [(ngModel)]="student.phone">
+                </div>
+            </div>
+            <div class="form-group text-right">
+                <button type="button" class="btn btn-secondary">Cancel</button>
+                <button type="submit" class="btn btn-success">AddStudent</button>
+            </div>
+        </div>
+    </div>
 </form>
